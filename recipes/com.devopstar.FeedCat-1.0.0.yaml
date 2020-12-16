@@ -1,0 +1,19 @@
+---
+RecipeFormatVersion: '2020-01-25'
+ComponentName: com.devopstar.FeedCat
+ComponentVersion: 1.0.0
+ComponentDescription: AWS IoT Greengrass component to feed your cat
+ComponentPublisher: Nathan Glover
+ComponentConfiguration:
+  DefaultConfiguration:
+    Message: meow
+Manifests:
+- Name: Linux
+  Platform:
+    os: linux
+  Lifecycle:
+    Run:
+      Script: python3 {artifacts:path}/feed_cat.py '{configuration:/Message}'
+      RequiresPrivilege: True
+  Artifacts:
+  - Uri: s3://greengrass-component-artifacts-${AWS_ACCOUNT_ID}-${AWS_REGION}/artifacts/com.devopstar.FeedCat/1.0.0/feed_cat.py
