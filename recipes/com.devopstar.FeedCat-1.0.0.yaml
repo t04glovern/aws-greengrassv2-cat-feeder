@@ -17,3 +17,5 @@ Manifests:
       RequiresPrivilege: True
   Artifacts:
   - Uri: s3://greengrass-component-artifacts-${AWS_ACCOUNT_ID}-${AWS_REGION}/artifacts/com.devopstar.FeedCat/1.0.0/feed_cat.py
+    Permission:
+        Execute: OWNER

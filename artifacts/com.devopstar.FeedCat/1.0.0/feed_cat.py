@@ -1,39 +1,52 @@
-import RPi.GPIO as IO
 import sys
 import time
+import traceback
+import logging
 
-IO.setmode(IO.BCM)
+import RPi.GPIO as IO
 
 # GPIO pins
 GPIO_SERVO_PIN = 18
 
-IO.setup(GPIO_SERVO_PIN,IO.OUT)
-SERVO = IO.PWM(GPIO_SERVO_PIN,100)
+# Logging
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
 
 class CatFeeder():
 
     def __init__(self):
+        IO.setmode(IO.BCM)
+        IO.setup(GPIO_SERVO_PIN,IO.OUT)
+        self.SERVO = IO.PWM(GPIO_SERVO_PIN,100)
+        time.sleep(0.1)
         self._reset_feeder()
 
     def _reset_feeder(self):
         self._open_feeder(open_feeder=False)
 
     def _open_feeder(self, open_feeder):
-        SERVO.start(0)
+        self.SERVO.start(0)
+        time.sleep(0.1)
         if open_feeder:
             # PWM Signal to open the servo
-            SERVO.ChangeDutyCycle(30)
+            self.SERVO.ChangeDutyCycle(30)
         else:
             # PWM Signal to close the servo
-            SERVO.ChangeDutyCycle(15)
+            self.SERVO.ChangeDutyCycle(15)
+        time.sleep(0.5)
+    
+    def _clear(self):
+        self.SERVO.stop()
+        IO.cleanup()
 
 if __name__ == '__main__':
     try:
         print(f"Hello, {sys.argv[1]}!")
         feeder = CatFeeder()
-        time.sleep(1)
         feeder._open_feeder(open_feeder=True)
-        time.sleep(3)
+        time.sleep(1.5)
         feeder._reset_feeder()
-    finally:
-        IO.cleanup()
+        feeder._clear()
+    except:
+        log.error(traceback.format_exc())

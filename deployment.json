@@ -1,0 +1,31 @@
+{
+    "targetArn": "arn:aws:iot:${AWS_REGION}:${AWS_ACCOUNT_ID}:thinggroup/cat-feeders",
+    "deploymentName": "Deployment for cat-feeder group",
+    "components": {
+        "com.devopstar.FeedCatSub": {
+            "componentVersion": "1.0.0",
+            "runWith": {}
+        },
+        "aws.greengrass.Nucleus": {
+            "componentVersion": "2.5.0"
+        },
+        "aws.greengrass.clientdevices.mqtt.Bridge": {
+            "componentVersion": "2.1.0",
+            "configurationUpdate": {
+                "merge": "{\"mqttTopicMapping\":{\"FeedMapping\":{\"topic\":\"devopstar/cat-feeder/feed\",\"source\":\"IotCore\",\"target\":\"Pubsub\"}}}"
+            },
+            "runWith": {}
+        }
+    },
+    "deploymentPolicies": {
+        "failureHandlingPolicy": "ROLLBACK",
+        "componentUpdatePolicy": {
+            "timeoutInSeconds": 60,
+            "action": "NOTIFY_COMPONENTS"
+        },
+        "configurationValidationPolicy": {
+            "timeoutInSeconds": 60
+        }
+    },
+    "iotJobConfiguration": {}
+}
