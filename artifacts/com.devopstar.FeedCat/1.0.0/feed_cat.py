@@ -18,7 +18,7 @@ class CatFeeder():
     def __init__(self):
         IO.setmode(IO.BCM)
         IO.setup(GPIO_SERVO_PIN,IO.OUT)
-        self.SERVO = IO.PWM(GPIO_SERVO_PIN,100)
+        self.SERVO = IO.PWM(GPIO_SERVO_PIN,50)
         time.sleep(0.1)
         self._reset_feeder()
 
@@ -30,10 +30,10 @@ class CatFeeder():
         time.sleep(0.1)
         if open_feeder:
             # PWM Signal to open the servo
-            self.SERVO.ChangeDutyCycle(30)
+            self.SERVO.ChangeDutyCycle(7.0)
         else:
             # PWM Signal to close the servo
-            self.SERVO.ChangeDutyCycle(15)
+            self.SERVO.ChangeDutyCycle(2.5)
         time.sleep(0.5)
     
     def _clear(self):
