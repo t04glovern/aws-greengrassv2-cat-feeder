@@ -11,7 +11,9 @@ aws s3 cp \
     s3://greengrass-component-artifacts-${AWS_ACCOUNT_ID}-${AWS_REGION}/artifacts/com.devopstar.FeedCatSub/1.0.0/feed_cat.py
 
 aws greengrassv2 create-component-version \
-    --inline-recipe fileb://recipes/com.devopstar.FeedCatSub-1.0.0.yaml
+    --inline-recipe file://recipes/com.devopstar.FeedCatSub-1.0.0.yaml \
+    --region ${AWS_REGION}
 aws greengrassv2 create-deployment \
-    --cli-input-json file://deployment.json
+    --cli-input-json file://deployment.json \
+    --region ${AWS_REGION}
 ```
