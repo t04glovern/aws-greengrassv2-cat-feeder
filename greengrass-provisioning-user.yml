@@ -41,10 +41,9 @@ Resources:
                             ],
                             "Condition": {
                                 "IpAddress": {
-                                    "aws:SourceIp": [
-                                        "${IpAddress}/32"
-                                    ]
-                                }
+                                    "aws:SourceIp": "${IpAddress}/32"
+                                },
+                                "Bool": {"aws:ViaAWSService": "false"}
                             }
                         },
                         {
@@ -67,10 +66,9 @@ Resources:
                             "Resource": "*",
                             "Condition": {
                                 "IpAddress": {
-                                    "aws:SourceIp": [
-                                        "${IpAddress}/32"
-                                    ]
-                                }
+                                    "aws:SourceIp": "${IpAddress}/32"
+                                },
+                                "Bool": {"aws:ViaAWSService": "false"}
                             }
                         },
                         {
@@ -91,10 +89,9 @@ Resources:
                             "Resource": "*",
                             "Condition": {
                                 "IpAddress": {
-                                    "aws:SourceIp": [
-                                        "${IpAddress}/32"
-                                    ]
-                                }
+                                    "aws:SourceIp": "${IpAddress}/32"
+                                },
+                                "Bool": {"aws:ViaAWSService": "false"}
                             }
                         }
                     ]
